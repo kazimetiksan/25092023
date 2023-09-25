@@ -1,4 +1,14 @@
-const Button = () => {
+    // const title = "Action Button"
+
+    // const config = {
+    //     title: "Action Button",
+    //     style: {},
+    // }
+
+const Button = ({
+    onClick,
+    title="default"
+}) => {
 
     const getTitle = (lang) => {
 
@@ -9,15 +19,17 @@ const Button = () => {
         return "Sign In"
     }
 
-    const title = "Action Button"
-
-    const config = {
-        title: "Action Button",
-        style: {},
-    }
 
     return (
-        <button>{getTitle("tr")}</button>
+        <button onClick={(e) => {
+
+            // button specific code
+            // console.log('button clicked')
+
+            // parent prop code
+            onClick(e)
+
+        }}>{title}</button>
     )
 }
 

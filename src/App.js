@@ -4,8 +4,11 @@ import './App.css';
 import Button from './Button';
 import SignedIn from './SignedIn';
 import List from './List';
+import Demo from './Demo';
 
 const App = () => {
+
+  return <Demo />
 
   const isSignedIn = false
 
@@ -19,7 +22,9 @@ const App = () => {
           <SignedIn />
         ) : (
           // if false
-          <Button />
+          <Button onClick={(e) => {
+            console.log('button clicked in App.js', e)
+          }} />
         )
       }
       <List />

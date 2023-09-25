@@ -1,34 +1,35 @@
-const Row = (props) => {
+    // destructuring
 
-    console.log('props', props)
+    // const dummy = {
+    //     ad: "ahmet",
+    //     soyad: "demir"
+    // }
 
-    const data = props
+    // const {
+    //     ad,
+    //     soyad
+    // } = dummy
 
-    return (
-        <div style={{
-            display: 'flex',
-            flexDirection: 'row'
-        }}>
-            <div>{data.firstName}</div>
-            <div>{data.lastName}</div>
-        </div>
-    )
-}
+    // console.log('ad', ad)
+
+    // const {data} = props
+
+import Row from "./Row"
 
 const List = () => {
 
     const users = [{
         firstName: "Mehmet",
         lastName: "Demir",
-        age: 30
+        age: 28
     },{
         firstName: "Elif",
         lastName: "Tekin",
-        age: 30
+        age: 32
     },{
         firstName: "Ahmet",
         lastName: "Demir",
-        age: 30
+        age: 43
     }]
 
     return (
@@ -37,7 +38,7 @@ const List = () => {
             users.map((user, index) => {
 
                 return (
-                    <Row data={user} />
+                    <Row key={index} data={user} />
                 )
             })
         }
