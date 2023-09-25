@@ -4,11 +4,12 @@ import './App.css';
 import Button from './Button';
 import SignedIn from './SignedIn';
 import List from './List';
-import Demo from './Demo';
+
+import Demo, {DemoRow, DemoRow1} from './Demo';
 
 const App = () => {
 
-  return <Demo />
+  // return <Demo />
 
   const isSignedIn = false
 
@@ -16,16 +17,16 @@ const App = () => {
     <div className="App">
       <header className="App-header">
       {
-        // Conditional Rendering
-        isSignedIn ? (
-          // if true
-          <SignedIn />
-        ) : (
-          // if false
-          <Button onClick={(e) => {
-            console.log('button clicked in App.js', e)
-          }} />
-        )
+        // // Conditional Rendering
+        // isSignedIn ? (
+        //   // if true
+        //   <SignedIn />
+        // ) : (
+        //   // if false
+        //   <Button onClick={(e) => {
+        //     console.log('button clicked in App.js', e)
+        //   }} />
+        // )
       }
       <List />
       </header>

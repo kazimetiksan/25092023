@@ -18,7 +18,16 @@ const Demo = () => {
         <>
             <div>Anlık Değer: {number}</div>
             <div>
-                <Button title="Arttır" onClick={() => {
+                <Button title="Azalt" onClick={() => {
+
+                    const newNumber = number-1
+                    setNumber(newNumber)
+
+                    console.log('number = ', newNumber)
+                }} />
+            </div>
+            <div>
+                <Button title={`Arttır ${number}`} onClick={() => {
 
                     const newNumber = number+1
                     setNumber(newNumber)
@@ -27,6 +36,18 @@ const Demo = () => {
                 }} />
             </div>
         </>
+    )
+}
+
+export const DemoRow = () => {
+    return (
+        <></>
+    )
+}
+
+export const DemoRow1 = () => {
+    return (
+        <></>
     )
 }
 

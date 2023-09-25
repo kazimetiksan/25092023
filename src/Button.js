@@ -5,6 +5,15 @@
     //     style: {},
     // }
 
+// const ButtonTitle = ({
+//     text
+// }) => {
+    
+//     return (
+//         <span>{text}</span>
+//     )
+// }
+
 const Button = ({
     onClick,
     title="default"
@@ -29,7 +38,9 @@ const Button = ({
             // parent prop code
             onClick(e)
 
-        }}>{title}</button>
+        }}>
+            {title}
+        </button>
     )
 }
 
