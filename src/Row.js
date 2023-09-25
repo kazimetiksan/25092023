@@ -1,5 +1,9 @@
+import Button from "./Button"
+
 const Row = ({
-    data
+    data,
+    onRemove,
+    uniqueId
 }) => {
 
     const {firstName, lastName, age} = data
@@ -13,6 +17,11 @@ const Row = ({
             <div>{lastName}</div>
             <div>{age}</div>
             <div>{age > 30 ? "Yaşı Uygun" : "Yaşı Uygun Değil"}</div>
+            <div>
+                <Button title="Sil" onClick={() => {
+                    onRemove(uniqueId)
+                }} />
+            </div>
         </div>
     )
 }

@@ -65,6 +65,8 @@ const List = () => {
     const inputChange = (key, value) => {
         console.log('input change', key, value)
 
+        // algorithm
+
         const updatedUser = {
             ...newUser,
             [key]: value
@@ -79,7 +81,17 @@ const List = () => {
             users.map((user, index) => {
 
                 return (
-                    <Row key={index} data={user} />
+                    <Row 
+                        key={index} 
+                        data={user} 
+                        uniqueId={index} 
+                        onRemove={(uniqueId) => {
+                            console.log(`${uniqueId} sıralı satır silinecek`)
+                            
+                            const updatedList = users.filter((item, itemIndex) => index !== itemIndex)
+                            setUsers(updatedList)
+                        }} 
+                    />
                 )
             })
         }
