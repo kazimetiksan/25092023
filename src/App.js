@@ -3,6 +3,7 @@ import './App.css';
 
 import Button from './Button';
 import SignedIn from './SignedIn';
+import List from './List';
 
 const App = () => {
 
@@ -21,6 +22,7 @@ const App = () => {
           <Button />
         )
       }
+      <List />
       </header>
     </div>
   );
