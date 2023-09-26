@@ -4,6 +4,7 @@ const Row = ({
     data,
     onRemove,
     onUpdate,
+    onNavigate,
     uniqueId
 }) => {
 
@@ -18,6 +19,11 @@ const Row = ({
             <div>{lastName}</div>
             <div>{age}</div>
             <div>{age > 30 ? "Yaşı Uygun" : "Yaşı Uygun Değil"}</div>
+            <div>
+                <Button variant="light" title="Detaya Git" onClick={() => {
+                    onNavigate(uniqueId)
+                }} />
+            </div>
             <div>
                 <Button variant="success" title="Güncelle" onClick={() => {
                     onUpdate(uniqueId)

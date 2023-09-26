@@ -7,7 +7,27 @@ import List from './List';
 
 import Demo, {DemoRow, DemoRow1} from './Demo';
 
+import {
+  BrowserRouter,
+  Routes,
+  Route
+} from 'react-router-dom'
+
+import Detail from './Detail';
+
 const App = () => {
+
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<Home />} />
+        <Route path='/detail' element={<Detail />} />
+      </Routes>
+    </BrowserRouter>
+  )
+}
+
+const Home = () => {
 
   // return <Demo />
 

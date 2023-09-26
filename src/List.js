@@ -18,6 +18,10 @@ import { useState, useEffect } from "react"
 import Row from "./Row"
 import Button from "./Button"
 
+import {
+    useNavigate
+} from 'react-router-dom'
+
 const List = () => {
 
     // const users = [{
@@ -79,6 +83,8 @@ const List = () => {
         setNewUser(updatedUser)
     }
 
+    const navigate = useNavigate()
+
     return (
         <>
         {
@@ -89,6 +95,11 @@ const List = () => {
                         key={index} 
                         data={user} 
                         uniqueId={index} 
+                        onNavigate={(uniqueId) => {
+                            console.log(`${uniqueId} sıralı satır detay ekranına geçilecek`)
+
+                            navigate(`/detail/${uniqueId}`)
+                        }}
                         onUpdate={(uniqueId) => {
                             console.log(`${uniqueId} sıralı satır güncellenecek`)
 
