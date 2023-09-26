@@ -8,36 +8,34 @@ const Row = ({
     uniqueId
 }) => {
 
-    const {
-        firstName, 
-        lastName, 
-        email="No Mail",
-        age=43
-    } = data
+    const {firstName, lastName, email, age} = data
 
     return (
-        <tr>
-            <td>{uniqueId}</td>
-            <td>{firstName}</td>
-            <td>{lastName}</td>
-            <td>{email}</td>
-            <td>{age}</td>
-            <td>
+        <div style={{
+            display: 'flex',
+            flexDirection: 'row'
+        }}>
+            <div>{firstName}</div>
+            <div>{lastName}</div>
+            <div>{email}</div>
+            <div>{age}</div>
+            <div>{age > 30 ? "Yaşı Uygun" : "Yaşı Uygun Değil"}</div>
+            <div>
                 <Button variant="light" title="Detaya Git" onClick={() => {
                     onNavigate(uniqueId)
                 }} />
-            </td>
-            <td>
+            </div>
+            <div>
                 <Button variant="success" title="Güncelle" onClick={() => {
                     onUpdate(uniqueId)
                 }} />
-            </td>
-            <td>
+            </div>
+            <div>
                 <Button variant="danger" title="Sil" onClick={() => {
                     onRemove(uniqueId)
                 }} />
-            </td>
-        </tr>
+            </div>
+        </div>
     )
 }
 
