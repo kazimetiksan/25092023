@@ -14,9 +14,14 @@
 //     )
 // }
 
+import {
+    Button as RBButton
+} from 'react-bootstrap'
+
 const Button = ({
     onClick,
-    title="default"
+    title="default",
+    variant="primary"
 }) => {
 
     const getTitle = (lang) => {
@@ -28,20 +33,28 @@ const Button = ({
         return "Sign In"
     }
 
-
     return (
-        <button onClick={(e) => {
-
-            // button specific code
-            // console.log('button clicked')
-
-            // parent prop code
+        <RBButton variant={variant} onClick={(e) => {
             onClick(e)
-
         }}>
             {title}
-        </button>
+        </RBButton>
     )
+
+
+    // return (
+    //     <button onClick={(e) => {
+
+    //         // button specific code
+    //         // console.log('button clicked')
+
+    //         // parent prop code
+    //         onClick(e)
+
+    //     }}>
+    //         {title}
+    //     </button>
+    // )
 }
 
 export default Button

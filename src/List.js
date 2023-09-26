@@ -48,11 +48,15 @@ const List = () => {
         age: 43
     }])
 
-    const [newUser, setNewUser] = useState({
+    const newUserTemplate = {
         firstName: "",
         lastName: "",
         age: 30
-    })
+    }
+
+    const [newUser, setNewUser] = useState(newUserTemplate)
+
+    const [updateIndex, setUpdateIndex] = useState(-1)
 
     useEffect(() => {
         console.log('component render edildi')
@@ -85,6 +89,13 @@ const List = () => {
                         key={index} 
                         data={user} 
                         uniqueId={index} 
+                        onUpdate={(uniqueId) => {
+                            console.log(`${uniqueId} sıralı satır güncellenecek`)
+
+                            setUpdateIndex(index)
+
+                            setNewUser(user)
+                        }}
                         onRemove={(uniqueId) => {
                             console.log(`${uniqueId} sıralı satır silinecek`)
                             
@@ -97,6 +108,8 @@ const List = () => {
         }
             <div>
                 <div><input placeholder="Ad" value={newUser.firstName} onChange={(e) => {
+
+                    // controlled input
                     inputChange('firstName', e.target.value)
                     // const firstName = e.target.value
                     // const updatedUser = {
@@ -107,7 +120,7 @@ const List = () => {
                     // setNewUser(updatedUser)
 
                 }} /></div>
-                <div><input placeholder="Ad" value={newUser.lastName} onChange={(e) => {
+                <div><input placeholder="Soyad" value={newUser.lastName} onChange={(e) => {
                     inputChange('lastName', e.target.value)
                     // const lastName = e.target.value
                     // const updatedUser = {
@@ -118,7 +131,7 @@ const List = () => {
                     // setNewUser(updatedUser)
 
                 }} /></div>
-                <div><input placeholder="Ad" value={newUser.age} onChange={(e) => {
+                <div><input placeholder="Yaş" value={newUser.age} onChange={(e) => {
                     inputChange('age', e.target.value)
                     // const age = e.target.value
                     // const updatedUser = {
@@ -130,9 +143,29 @@ const List = () => {
 
                 }} /></div>
                 <div>
-                    <Button title="Ekle" onClick={() => {
+                    <Button title={updateIndex === -1 ? "Ekle" : "Güncelle"} onClick={() => {
 
-                        const updatedList = [...users, newUser]
+                        let updatedList
+
+                        if (updateIndex < 0) {
+
+                            // ADD
+                            updatedList = [...users, newUser]
+                        } else {
+                            
+                            // UPDATE
+                            updatedList = users.map((item, index) => {
+
+                                if (index === updateIndex) {
+                                    return newUser
+                                }
+
+                                return item
+                            })
+
+                            setUpdateIndex(-1)
+                            setNewUser(newUserTemplate)
+                        }
 
                         setUsers(updatedList)
                     }} />

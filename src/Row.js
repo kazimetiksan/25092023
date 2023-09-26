@@ -3,6 +3,7 @@ import Button from "./Button"
 const Row = ({
     data,
     onRemove,
+    onUpdate,
     uniqueId
 }) => {
 
@@ -18,7 +19,12 @@ const Row = ({
             <div>{age}</div>
             <div>{age > 30 ? "Yaşı Uygun" : "Yaşı Uygun Değil"}</div>
             <div>
-                <Button title="Sil" onClick={() => {
+                <Button variant="success" title="Güncelle" onClick={() => {
+                    onUpdate(uniqueId)
+                }} />
+            </div>
+            <div>
+                <Button variant="danger" title="Sil" onClick={() => {
                     onRemove(uniqueId)
                 }} />
             </div>
