@@ -218,7 +218,7 @@ const List = () => {
                 <div>
                     <Button title={updateIndex === -1 ? "Ekle" : "Güncelle"} onClick={() => {
 
-                        let updatedList
+                        // let updatedList = undefined
 
                         if (updateIndex < 0) {
 
@@ -233,12 +233,12 @@ const List = () => {
                             axios.post(url, newUser)
                             
                             .then((response) => {
-                                updatedList = [...users, response.data]
+                                const updatedList = [...users, response.data]
                                 console.log('-- added', updatedList)
                 
                 
-                                    setLoading(false)
-                                
+                                setLoading(false)
+                                setUsers(updatedList)
                             })
                 
                             .catch((err) => {
@@ -248,7 +248,7 @@ const List = () => {
                         } else {
 
                             // UPDATE
-                            updatedList = users.map((item, index) => {
+                            const updatedList = users.map((item, index) => {
 
                                 if (index === updateIndex) {
                                     return newUser
@@ -257,11 +257,15 @@ const List = () => {
                                 return item
                             })
 
+                            setUsers(updatedList)
+
                             setUpdateIndex(-1)
                             setNewUser(newUserTemplate)
                         }
 
-                        setUsers(updatedList)
+                        // set undefined
+
+                        
                     }} />
                 </div>
             </div>
