@@ -38,7 +38,8 @@ import {
     setUsers,
     addUser,
     getUsers,
-    setLoading
+    setLoading,
+    addNewUser
 } from './redux/requests'
 
 // import {
@@ -92,14 +93,17 @@ const List = () => {
         // setLoading(true)
 
         setLoading(true)
-        getUsers({
+
+        const getUsersParams = {
             callback: (isDone) => {
 
                 if (isDone) {
                     setLoading(false)
                 }
             }
-        })
+        }
+
+        getUsers(getUsersParams)
 
         // getUsers({
         //     callback: (isDone) => {
@@ -230,24 +234,33 @@ const List = () => {
 
                         if (updateIndex < 0) {
 
+                            setLoading(true)
+                            
+                            addNewUser({
+                                callback: () => {
+                                    setLoading(false)
+                                },
+                                newUser
+                            })
+
                             // setLoading(true)
 
-                            const url = 'https://reactpm.azurewebsites.net/api/user'
-                            axios.post(url, newUser)
+                            // const url = 'https://reactpm.azurewebsites.net/api/user'
+                            // axios.post(url, newUser)
                             
-                            .then((response) => {
-                                // const updatedList = [...reduxUsers, response.data]
-                                // console.log('-- added', updatedList)
+                            // .then((response) => {
+                            //     // const updatedList = [...reduxUsers, response.data]
+                            //     // console.log('-- added', updatedList)
                 
-                                addUser(response.data)
+                            //     addUser(response.data)
                 
-                                // setLoading(false)
-                                // setUsers(updatedList)
-                            })
+                            //     // setLoading(false)
+                            //     // setUsers(updatedList)
+                            // })
                 
-                            .catch((err) => {
-                                console.log('hata oluştu', err)
-                            })
+                            // .catch((err) => {
+                            //     console.log('hata oluştu', err)
+                            // })
                 
                         } else {
 

@@ -20,8 +20,6 @@ const userSlice = createSlice({
         },
         addUser: (state, {payload}) => {
 
-            // axios
-
             return [...state, payload]
         }
     }
@@ -31,15 +29,15 @@ export const {setUsers, addUser} = userSlice.actions
 
 // ASYNC
 
-export const getUsers = createAsyncThunk('getUsers', (params, {dispatch}) => {
+export const getUsers = createAsyncThunk('getUsers', (payload, {dispatch}) => {
 
     // Async Promise
 
-    console.log('thunk params', params)
+    console.log('thunk params', payload)
 
     const {
         callback
-    } = params
+    } = payload
 
     const url = 'https://reactpm.azurewebsites.net/api/users'
 
@@ -50,6 +48,35 @@ export const getUsers = createAsyncThunk('getUsers', (params, {dispatch}) => {
             console.log('redux response', response.data)
 
             dispatch(setUsers(response.data))
+            callback(true)
+        })
+
+        .catch((err) => {
+            console.log('hata oluştu', err)
+            callback(false)
+        })
+})
+
+export const addNewUser = createAsyncThunk('addNewUser', (payload, {dispatch}) => {
+
+    // Async Promise
+
+    console.log('addNewUser thunk params', payload)
+
+    const {
+        callback,
+        newUser
+    } = payload
+
+    const url = 'https://reactpm.azurewebsites.net/api/user'
+
+    axios.post(url, newUser)
+
+        .then((response) => {
+
+            console.log('redux response', response.data)
+
+            dispatch(addUser(response.data))
             callback(true)
         })
 
