@@ -15,15 +15,25 @@ import {
 
 import Detail from './Detail';
 
+import {
+  Provider
+} from 'react-redux'
+
+import {
+  store
+} from './redux/store'
+
 const App = () => {
 
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path='/' element={<Home />} />
-        <Route path='/detail' element={<Detail />} />
-      </Routes>
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/detail/:_id' element={<Detail />} />
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   )
 }
 

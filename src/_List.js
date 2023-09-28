@@ -30,7 +30,7 @@ import {
 } from 'react-bootstrap'
 
 import {
-    // useSelector,
+    useSelector,
     useDispatch
 } from 'react-redux'
 
@@ -38,18 +38,44 @@ import {
     setUsers
 } from './redux/userSlice'
 
-import {
-    useRedux
-} from './redux/hooks.js'
-
 const List = () => {
 
-    const {
-        users:reduxUsers
-    } = useRedux()
-
-    // const reduxUsers = useSelector(state => state.user)
+    const reduxUsers = useSelector(state => state.user)
     const dispatch = useDispatch()
+
+    // console.log('selector state', reduxUsers)
+
+    // LOCAL VARIABLE
+    // const users = [{
+    //     firstName: "Mehmet",
+    //     lastName: "Demir",
+    //     age: 28
+    // },{
+    //     firstName: "Elif",
+    //     lastName: "Tekin",
+    //     age: 32
+    // },{
+    //     firstName: "Ahmet",
+    //     lastName: "Demir",
+    //     age: 43
+    // }]
+
+    // LOCAL STATE
+    // const [users, setUsers] = useState([{
+    //     firstName: "Mehmet",
+    //     lastName: "Demir",
+    //     age: 28
+    // },{
+    //     firstName: "Elif",
+    //     lastName: "Tekin",
+    //     age: 32
+    // },{
+    //     firstName: "Ahmet",
+    //     lastName: "Demir",
+    //     age: 43
+    // }])
+
+    // const [users, setUsers] = useState([])
 
     const newUserTemplate = {
         firstName: "",
@@ -91,8 +117,17 @@ const List = () => {
         axios.get(url)
 
             .then((response) => {
-                
-                setLoading(false)
+                // console.log(response.data)
+
+                // LOCAL STATE
+                // setUsers(response.data)
+
+                // gecikmeli işlem
+                // setTimeout(() => {
+                    setLoading(false)
+                // }, 3000)
+
+                // REDUX DISPATCH
                 dispatch(
                     setUsers(
                         response.data
