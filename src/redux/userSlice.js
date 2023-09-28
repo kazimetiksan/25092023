@@ -21,11 +21,28 @@ const userSlice = createSlice({
         addUser: (state, {payload}) => {
 
             return [...state, payload]
+        },
+        update: (state, {payload}) => {
+
+            // payload._id güncellenecek id
+
+            return state.map((item, index) => {
+
+                if (item._id === payload._id) {
+                    return payload
+                }
+
+                return item
+            })
+        },
+        remove: (state, {payload}) => {
+
+            return state.filter(item => item._id !== payload)
         }
     }
 })
 
-export const {setUsers, addUser} = userSlice.actions
+export const {setUsers, addUser, update, remove} = userSlice.actions
 
 // ASYNC
 
@@ -77,6 +94,63 @@ export const addNewUser = createAsyncThunk('addNewUser', (payload, {dispatch}) =
             console.log('redux response', response.data)
 
             dispatch(addUser(response.data))
+            callback(true)
+        })
+
+        .catch((err) => {
+            console.log('hata oluştu', err)
+            callback(false)
+        })
+})
+
+export const updateUser = createAsyncThunk('updateUser', (payload, {dispatch}) => {
+
+    console.log('updateUser thunk params', payload)
+
+    const {
+        callback,
+        newUser 
+    } = payload
+
+    const url = `https://reactpm.azurewebsites.net/api/user/${newUser._id}`
+
+    axios.patch(url, newUser)
+
+        .then((response) => {
+
+            console.log('redux update response', response.data)
+
+            dispatch(update(response.data))
+            callback(true)
+        })
+
+        .catch((err) => {
+            console.log('hata oluştu', err)
+            callback(false)
+        })
+})
+
+export const removeUser = createAsyncThunk('removeUser', (payload, {dispatch}) => {
+
+    console.log('removeUser thunk params', payload)
+
+    const {
+        callback=() => {},
+        _id 
+    } = payload
+
+    const url = `https://reactpm.azurewebsites.net/api/user/${_id}`
+
+    axios.delete(url)
+
+        .then((response) => {
+
+            console.log('redux update response', response.status)
+
+            if (response.status === 200) {
+                dispatch(remove(_id))
+            }
+
             callback(true)
         })
 

@@ -35,11 +35,13 @@ import {
 } from 'react-redux'
 
 import {
-    setUsers,
-    addUser,
+    // setUsers,
+    // addUser,
     getUsers,
     setLoading,
-    addNewUser
+    addNewUser,
+    updateUser,
+    removeUser
 } from './redux/requests'
 
 // import {
@@ -180,8 +182,15 @@ const List = () => {
                                             onRemove={(uniqueId) => {
                                                 console.log(`${uniqueId} sıralı satır silinecek`)
 
-                                                const updatedList = users.filter((item, itemIndex) => index !== itemIndex)
+                                                // const updatedList = users.filter((item, itemIndex) => index !== itemIndex)
                                                 // setUsers(updatedList)
+
+                                                removeUser({
+                                                    callback: () => {
+
+                                                    },
+                                                    _id: user._id
+                                                })
                                             }}
                                         />
                                     )
@@ -264,17 +273,24 @@ const List = () => {
                 
                         } else {
 
-                            // UPDATE
-                            const updatedList = users.map((item, index) => {
+                            // UPDATE LOCAL
+                            // const updatedList = users.map((item, index) => {
 
-                                if (index === updateIndex) {
-                                    return newUser
-                                }
+                            //     if (index === updateIndex) {
+                            //         return newUser
+                            //     }
 
-                                return item
-                            })
+                            //     return item
+                            // })
 
                             // setUsers(updatedList)
+
+                            updateUser({
+                                callback: () => {
+
+                                },
+                                newUser
+                            })
 
                             setUpdateIndex(-1)
                             setNewUser(newUserTemplate)
