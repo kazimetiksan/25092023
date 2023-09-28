@@ -38,7 +38,7 @@ import {
     setUsers
 } from './redux/userSlice'
 
-const List = () => {
+const _List = () => {
 
     const reduxUsers = useSelector(state => state.user)
     const dispatch = useDispatch()
@@ -295,4 +295,4 @@ const List = () => {
     )
 }
 
-export default List
+export default _List

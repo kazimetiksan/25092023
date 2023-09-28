@@ -4,7 +4,9 @@ import {
 
 export const useRedux = () => {
 
-    const users = useSelector(state => state.user)
+    const users = useSelector(state => state.users)
 
-    return {users}
+    const isLoading = useSelector(state => state.config.isLoading)
+
+    return {users, isLoading}
 }

@@ -3,9 +3,11 @@ import {
 } from '@reduxjs/toolkit'
 
 import userSlice from './userSlice'
+import configSlice from './configSlice'
 
 export const store = configureStore({
     reducer: {
-        user: userSlice,
+        users: userSlice,
+        config: configSlice
     }
 })

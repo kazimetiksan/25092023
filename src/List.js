@@ -31,12 +31,19 @@ import {
 
 import {
     // useSelector,
-    useDispatch
+    // useDispatch
 } from 'react-redux'
 
 import {
-    setUsers
-} from './redux/userSlice'
+    setUsers,
+    addUser,
+    getUsers,
+    setLoading
+} from './redux/requests'
+
+// import {
+//     setUsers
+// } from './redux/userSlice'
 
 import {
     useRedux
@@ -44,12 +51,10 @@ import {
 
 const List = () => {
 
-    const {
-        users:reduxUsers
-    } = useRedux()
+    const {users, isLoading} = useRedux()
 
     // const reduxUsers = useSelector(state => state.user)
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
     const newUserTemplate = {
         firstName: "",
@@ -61,7 +66,7 @@ const List = () => {
 
     const [updateIndex, setUpdateIndex] = useState(-1)
 
-    const [isLoading, setLoading] = useState(false)
+    // const [isLoading, setLoading] = useState(false)
 
     useEffect(() => {
         // console.log('new user updated', newUser)
@@ -84,25 +89,41 @@ const List = () => {
 
     const getData = () => {
 
+        // setLoading(true)
+
         setLoading(true)
+        getUsers({
+            callback: (isDone) => {
 
-        const url = 'https://reactpm.azurewebsites.net/api/users'
+                if (isDone) {
+                    setLoading(false)
+                }
+            }
+        })
 
-        axios.get(url)
+        // getUsers({
+        //     callback: (isDone) => {
 
-            .then((response) => {
+        //         if (isDone) {
+        //             setLoading(false)
+        //         }
+        //     }
+        // })
+
+        // const url = 'https://reactpm.azurewebsites.net/api/users'
+
+        // axios.get(url)
+
+        //     .then((response) => {
                 
-                setLoading(false)
-                dispatch(
-                    setUsers(
-                        response.data
-                    )
-                )
-            })
+        //         setLoading(false)
 
-            .catch((err) => {
-                console.log('hata oluştu', err)
-            })
+        //         setUsers(response.data)
+        //     })
+
+        //     .catch((err) => {
+        //         console.log('hata oluştu', err)
+        //     })
     }
 
     useEffect(() => {
@@ -133,7 +154,7 @@ const List = () => {
                         </thead >
                         <tbody>
                             {
-                                reduxUsers.map((user, index) => {
+                                users.map((user, index) => {
 
                                     return (
                                         <Row
@@ -155,7 +176,7 @@ const List = () => {
                                             onRemove={(uniqueId) => {
                                                 console.log(`${uniqueId} sıralı satır silinecek`)
 
-                                                const updatedList = reduxUsers.filter((item, itemIndex) => index !== itemIndex)
+                                                const updatedList = users.filter((item, itemIndex) => index !== itemIndex)
                                                 // setUsers(updatedList)
                                             }}
                                         />
@@ -209,22 +230,18 @@ const List = () => {
 
                         if (updateIndex < 0) {
 
-                            // ADD LOCAL
-                            //updatedList = [...users, newUser]
-
-                            // ADD API
-
-                            setLoading(true)
+                            // setLoading(true)
 
                             const url = 'https://reactpm.azurewebsites.net/api/user'
                             axios.post(url, newUser)
                             
                             .then((response) => {
-                                const updatedList = [...reduxUsers, response.data]
-                                console.log('-- added', updatedList)
+                                // const updatedList = [...reduxUsers, response.data]
+                                // console.log('-- added', updatedList)
                 
+                                addUser(response.data)
                 
-                                setLoading(false)
+                                // setLoading(false)
                                 // setUsers(updatedList)
                             })
                 
@@ -235,7 +252,7 @@ const List = () => {
                         } else {
 
                             // UPDATE
-                            const updatedList = reduxUsers.map((item, index) => {
+                            const updatedList = users.map((item, index) => {
 
                                 if (index === updateIndex) {
                                     return newUser
