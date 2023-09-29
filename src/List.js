@@ -54,7 +54,7 @@ import {
 
 const List = () => {
 
-    const {users, isLoading} = useRedux()
+    const {users, isLoading, xauth, profile} = useRedux()
 
     // const reduxUsers = useSelector(state => state.user)
     // const dispatch = useDispatch()
@@ -66,6 +66,8 @@ const List = () => {
     }
 
     const [newUser, setNewUser] = useState(newUserTemplate)
+
+    const [currentPage, setCurrentPage] = useState(0)
 
     const [updateIndex, setUpdateIndex] = useState(-1)
 
@@ -140,6 +142,16 @@ const List = () => {
 
     return (
         <>
+            {
+                // signed in user header
+                xauth && (
+                    <div style={{
+                        margin: 10
+                    }}>
+                        <div>Hoşgeldin {profile.firstName} {profile.lastName}!</div>
+                    </div>
+                )
+            }
             {
                 isLoading ? (
                     // spinner
