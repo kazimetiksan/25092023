@@ -169,7 +169,7 @@ export const signUp = createAsyncThunk('signUp', (payload, {dispatch}) => {
         userInfo
     } = payload
 
-    const url = 'https://reactpm.azurewebsites.net/api/signup'
+    const url = '/api/signup' // relative adres
 
     axios.post(url, userInfo)
 
