@@ -14,6 +14,7 @@ import {
 } from 'react-router-dom'
 
 import Detail from './Detail';
+import SignUp from './SignUp';
 
 import {
   Provider
@@ -31,6 +32,7 @@ const App = () => {
         <Routes>
           <Route path='/' element={<Home />} />
           <Route path='/detail/:_id' element={<Detail />} />
+          <Route path='/signup' element={<SignUp />} />
         </Routes>
       </BrowserRouter>
     </Provider>

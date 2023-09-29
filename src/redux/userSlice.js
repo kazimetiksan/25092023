@@ -160,4 +160,32 @@ export const removeUser = createAsyncThunk('removeUser', (payload, {dispatch}) =
         })
 })
 
+export const signUp = createAsyncThunk('signUp', (payload, {dispatch}) => {
+
+    console.log('signUp thunk params', payload)
+
+    const {
+        callback,
+        userInfo
+    } = payload
+
+    const url = 'https://reactpm.azurewebsites.net/api/signup'
+
+    axios.post(url, userInfo)
+
+        .then((response) => {
+
+            console.log('signup response', response.data)
+            console.log('signup token', response.headers)
+
+            callback(true)
+        })
+
+        .catch((err) => {
+            console.log('hata oluştu', err)
+            callback(false)
+        })
+})
+
+
 export default userSlice.reducer
