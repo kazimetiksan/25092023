@@ -25,6 +25,8 @@ router.post('/signup', async (req, res) => {
 
     const body = _.pick(req.body, ['email', 'password', 'firstName', 'lastName', 'age'])
 
+    console.log('signup body', body)
+
     const obj = new User({
         ...body,
     })

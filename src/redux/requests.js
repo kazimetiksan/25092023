@@ -12,5 +12,6 @@ export const updateUser = (payload) => store.dispatch(userSlice.updateUser(paylo
 export const removeUser = (payload) => store.dispatch(userSlice.removeUser(payload))
 
 export const signUp = (payload) => store.dispatch(userSlice.signUp(payload))
+export const signIn = (payload) => store.dispatch(userSlice.signIn(payload))
 
 export const setLoading = (payload) => store.dispatch(configSlice.setLoading(payload))

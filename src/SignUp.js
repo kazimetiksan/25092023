@@ -13,7 +13,23 @@ import {
     signUp
 } from './redux/requests'
 
+import {
+    useRedux
+} from './redux/hooks'
+
+import {
+    useNavigate
+} from 'react-router-dom'
+
 const SignUp = () => {
+
+    const {xauth} = useRedux()
+    console.log('signup sürecinde xauth', xauth)
+
+    const navigate = useNavigate()
+    if (xauth !== undefined) {
+        navigate('/')
+    }
 
     const [userInfo, setUserInfo] = useState({
         firstName: "",
@@ -22,6 +38,8 @@ const SignUp = () => {
         email: "",
         password: ""
     })
+
+    const [validationPassword, setValidationPassword] = useState("")
 
     const inputChange = (key, value) => {
         const updatedUser = {
@@ -47,12 +65,19 @@ const SignUp = () => {
 
     return (
         <>
+        <Form noValidate>
             <Form.Control value={userInfo.email} onChange={(e) => {
                 inputChange('email', e.target.value)
             }} placeholder='E-Mail' />
+
             <Form.Control value={userInfo.password} onChange={(e) => {
                 inputChange('password', e.target.value)
-            }} placeholder='Password' />
+            }} placeholder='Password' security="true" type='password' />
+            <Form.Control value={validationPassword} onChange={(e) => {
+                const valPass = e.target.value
+                setValidationPassword(valPass)
+            }} placeholder='Password' security="true" type='password' isValid={validationPassword === userInfo.password} />
+
             <Form.Control value={userInfo.firstName} onChange={(e) => {
                 inputChange('firstName', e.target.value)
             }} placeholder='firstName' />
@@ -65,6 +90,7 @@ const SignUp = () => {
             <Button title='Kaydet' onClick={() => {
                 saveUser()
             }} />
+        </Form>
         </>
     )
 }

@@ -5,7 +5,11 @@ import {
 
 import axios from 'axios'
 
-const initialState = [] // array count 0
+const initialState = {
+    list: [],
+    xauth: undefined,
+    profile: {}
+}
 
 const userSlice = createSlice({
     name: 'user',
@@ -16,11 +20,13 @@ const userSlice = createSlice({
 
             console.log('user action', payload)
 
-            return payload
+            // return payload
+            state.list = payload
         },
         addUser: (state, {payload}) => {
 
-            return [...state, payload]
+            state.list = [...state.list, payload]
+            // return [...state, payload]
         },
         update: (state, {payload}) => {
 
@@ -38,11 +44,19 @@ const userSlice = createSlice({
         remove: (state, {payload}) => {
 
             return state.filter(item => item._id !== payload)
-        }
+        },
+        setXAuth: (state, {payload}) => {
+
+            state.xauth = payload
+        },
+        setProfile: (state, {payload}) => {
+
+            state.profile = payload
+        },
     }
 })
 
-export const {setUsers, addUser, update, remove} = userSlice.actions
+export const {setUsers, addUser, update, remove, setProfile, setXAuth} = userSlice.actions
 
 // ASYNC
 
@@ -178,6 +192,12 @@ export const signUp = createAsyncThunk('signUp', (payload, {dispatch}) => {
             console.log('signup response', response.data)
             console.log('signup token', response.headers)
 
+            const xauth = response.headers.xauth
+            const userProfile = response.data
+
+            dispatch(setXAuth(xauth))
+            dispatch(setProfile(userProfile))
+
             callback(true)
         })
 
@@ -187,5 +207,37 @@ export const signUp = createAsyncThunk('signUp', (payload, {dispatch}) => {
         })
 })
 
+export const signIn = createAsyncThunk('signIn', (payload, {dispatch}) => {
+
+    console.log('signIn thunk params', payload)
+
+    const {
+        callback,
+        userInfo
+    } = payload
+
+    const url = '/api/signin' // relative adres
+
+    axios.post(url, userInfo)
+
+        .then((response) => {
+
+            console.log('signim response', response.data)
+            console.log('signin token', response.headers)
+
+            const xauth = response.headers.xauth
+            const userProfile = response.data
+
+            dispatch(setXAuth(xauth))
+            dispatch(setProfile(userProfile))
+
+            callback(true)
+        })
+
+        .catch((err) => {
+            console.log('hata oluştu', err)
+            callback(false)
+        })
+})
 
 export default userSlice.reducer

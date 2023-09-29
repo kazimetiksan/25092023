@@ -15,6 +15,7 @@ import {
 
 import Detail from './Detail';
 import SignUp from './SignUp';
+import SignIn from './SignIn';
 
 import {
   Provider
@@ -33,6 +34,7 @@ const App = () => {
           <Route path='/' element={<Home />} />
           <Route path='/detail/:_id' element={<Detail />} />
           <Route path='/signup' element={<SignUp />} />
+          <Route path='/signin' element={<SignIn />} />
         </Routes>
       </BrowserRouter>
     </Provider>
